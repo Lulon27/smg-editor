@@ -1,4 +1,5 @@
-set(FILES_CPP	"MyFile.cpp")
+set(FILES_CPP	"MyFile.cpp"
+				"SMGEditor.cpp")
 
 set(EDITOR_EXEC_NAME "SMGEditor")
 set(EDITOR_LIB_NAME "lib_SMGEditor")

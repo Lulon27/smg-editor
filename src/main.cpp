@@ -1,12 +1,12 @@
 #include <spdlog/spdlog.h>
 #include "SMGEditor/MyHeader.h"
+#include "SMGEditor/SMGEditor.h"
 
 int main()
 {
     logWelcome();
 
-    int a = 4;
-    int b = 2;
-    spdlog::info("{} + {} = {}", a, b, add(4, 2));
+    smg::Application editor;
+    editor.run();
     return 0;
 }
