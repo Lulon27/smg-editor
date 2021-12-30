@@ -1,4 +1,5 @@
 #include "RedStar/RedStarApp.h"
+#include "RedStar/Assert.h"
 
 namespace RedStar
 {
