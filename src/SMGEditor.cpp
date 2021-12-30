@@ -1,12 +1,12 @@
-#include "SMGEditor/SMGEditor.h"
+#include "RedStar/SMGEditor.h"
 
-namespace smg
+namespace RedStar
 {
 	Application* Application::s_instance = nullptr;
 
 	Application::Application()
 	{
-		SMG_ASSERT(!s_instance, "Application can only be instantiated once!");
+		RS_ASSERT(!s_instance, "Application can only be instantiated once!");
 		s_instance = this;
 	}
 

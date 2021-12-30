@@ -1,10 +1,10 @@
 set(FILES_CPP	"MyFile.cpp"
 				"SMGEditor.cpp")
 
-set(EDITOR_EXEC_NAME "SMGEditor")
-set(EDITOR_LIB_NAME "lib_SMGEditor")
+set(EDITOR_EXEC_NAME "RedStarEditor")
+set(EDITOR_LIB_NAME "lib_RedStarEditor")
 
-include_directories(SMGEditor PUBLIC	"${CMAKE_SOURCE_DIR}/include/"
+include_directories(RedStarEditor PUBLIC	"${CMAKE_SOURCE_DIR}/include/"
 										"${CMAKE_SOURCE_DIR}/vendor/spdlog/include/")
 
 add_library(${EDITOR_LIB_NAME}	${FILES_CPP})

@@ -1,5 +1,5 @@
 
-set(EDITOR_LIB_NAME "lib_SMGEditor")
+set(EDITOR_LIB_NAME "lib_RedStarEditor")
 set(GTEST_PATH "vendor/googletest")
 
 include(GoogleTest)
@@ -12,7 +12,7 @@ mark_as_advanced(
     gtest_disable_pthreads gtest_force_shared_crt gtest_hide_internal_symbols
 )
 
-macro(smg_add_test TESTNAME)
+macro(redstar_add_test TESTNAME)
 
     include_directories(${TESTNAME} PUBLIC "${CMAKE_SOURCE_DIR}/include/")
     add_executable(${TESTNAME} ${ARGN})
@@ -21,4 +21,4 @@ macro(smg_add_test TESTNAME)
     set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
 endmacro()
 
-smg_add_test(ExampleTest test_file.cpp)
+redstar_add_test(ExampleTest test_file.cpp)

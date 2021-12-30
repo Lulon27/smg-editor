@@ -1,4 +1,4 @@
-#include "SMGEditor/MyHeader.h"
+#include "RedStar/MyHeader.h"
 #include "spdlog/spdlog.h"
 
 void logWelcome()

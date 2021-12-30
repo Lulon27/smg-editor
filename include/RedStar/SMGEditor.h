@@ -1,10 +1,10 @@
 #pragma once
 
-#include "SMGEditor/Logging.h"
+#include "RedStar/Logging.h"
 
 #ifdef NDEBUG
 	#define DEBUG_BREAK()
-	#define SMG_ASSERT(condition, ...)
+	#define RS_ASSERT(condition, ...)
 #else
 	#ifdef _MSC_VER
 		#define DEBUG_BREAK() __debugbreak()
@@ -12,10 +12,10 @@
 		#define DEBUG_BREAK() /* Not Visual Studio */
 	#endif
 
-	#define SMG_ASSERT(condition, ...) if(!(condition)){ SMG_CRITICAL(__VA_ARGS__); DEBUG_BREAK();}
+	#define RS_ASSERT(condition, ...) if(!(condition)){ RS_CRITICAL(__VA_ARGS__); DEBUG_BREAK();}
 #endif
 
-namespace smg
+namespace RedStar
 {
 	class Application
 	{

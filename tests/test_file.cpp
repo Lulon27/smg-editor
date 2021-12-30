@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "SMGEditor/MyHeader.h"
+#include "RedStar/MyHeader.h"
 #include <iostream>
 
 TEST(MyTestSuite, ExampleTest)
