@@ -9,6 +9,8 @@ namespace RedStar
 	{
 		RS_ASSERT(!s_instance, "Application can only be instantiated once!");
 		s_instance = this;
+
+		m_appLogger = Logger::create(RS_APP_LOGGER_NAME);
 	}
 
 	RedStarApp::~RedStarApp()

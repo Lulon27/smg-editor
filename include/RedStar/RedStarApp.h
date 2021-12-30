@@ -1,5 +1,7 @@
 #pragma once
 
+#include "RedStar/Logging.h"
+
 namespace RedStar
 {
 	class RedStarApp
@@ -15,6 +17,11 @@ namespace RedStar
 			return m_running;
 		}
 
+		const Logger& getLogger()
+		{
+			return m_appLogger;
+		}
+
 		static RedStarApp* get()
 		{
 			return s_instance;
@@ -22,6 +29,7 @@ namespace RedStar
 
 	private:
 		bool m_running = false;
+		Logger m_appLogger;
 
 		static RedStarApp* s_instance;
 	};

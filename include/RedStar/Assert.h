@@ -12,5 +12,7 @@
 		#define DEBUG_BREAK() /* Not Visual Studio */
 	#endif // _MSC_VER
 
-#define RS_ASSERT(condition, ...) if(!(condition)){ RS_CRITICAL(__VA_ARGS__); DEBUG_BREAK();}
+	#define RS_ASSERT(condition, ...) if(!(condition)){ ::RedStar::Logger::getAssertLogger().critical(__VA_ARGS__); DEBUG_BREAK();}
+
 #endif // NDEBUG
+
