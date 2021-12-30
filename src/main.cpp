@@ -1,12 +1,12 @@
 #include <spdlog/spdlog.h>
 #include "RedStar/MyHeader.h"
-#include "RedStar/SMGEditor.h"
+#include "RedStar/RedStarApp.h"
 
 int main()
 {
     logWelcome();
 
-    RedStar::Application editor;
+    RedStar::RedStarApp editor;
     editor.run();
     return 0;
 }

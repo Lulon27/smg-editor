@@ -17,11 +17,11 @@
 
 namespace RedStar
 {
-	class Application
+	class RedStarApp
 	{
 	public:
-		Application();
-		~Application();
+		RedStarApp();
+		~RedStarApp();
 
 		void run();
 
@@ -30,7 +30,7 @@ namespace RedStar
 			return m_running;
 		}
 
-		static Application* get()
+		static RedStarApp* get()
 		{
 			return s_instance;
 		}
@@ -38,6 +38,6 @@ namespace RedStar
 	private:
 		bool m_running = false;
 
-		static Application* s_instance;
+		static RedStarApp* s_instance;
 	};
 }
