@@ -2,6 +2,8 @@
 
 #include "Window.h"
 
+struct GLFWwindow;
+
 namespace RedStar
 {
 	class GLFWWindow : public Window
@@ -26,7 +28,7 @@ namespace RedStar
 		bool isVSyncEnabled() override;
 
 	private:
-		void* m_windowHandle = nullptr;
+		GLFWwindow* m_windowHandle = nullptr;
 		bool m_vsyncEnabled = false;
 	};
 }

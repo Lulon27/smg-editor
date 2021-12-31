@@ -5,8 +5,6 @@
 
 #include "RedStar/RedStarApp.h"
 
-#define WINDOW_HANDLE reinterpret_cast<GLFWwindow*>(m_windowHandle)
-
 namespace RedStar
 {
 	static size_t windowCount = 0;
@@ -60,7 +58,7 @@ namespace RedStar
 	{
 		if (m_windowHandle) // In case the window failed to create
 		{
-			glfwDestroyWindow(WINDOW_HANDLE);
+			glfwDestroyWindow(m_windowHandle);
 		}
 
 		--windowCount;
@@ -74,26 +72,26 @@ namespace RedStar
 	{
 		RS_ASSERT(m_windowHandle, "Cannot update an uninitialized window!");
 		glfwPollEvents();
-		if (glfwWindowShouldClose(WINDOW_HANDLE))
+		if (glfwWindowShouldClose(m_windowHandle))
 		{
-			glfwSetWindowShouldClose(WINDOW_HANDLE, false);
+			glfwSetWindowShouldClose(m_windowHandle, false);
 			hide();
 		}
 	}
 
 	void GLFWWindow::show()
 	{
-		glfwShowWindow(WINDOW_HANDLE);
+		glfwShowWindow(m_windowHandle);
 	}
 
 	void GLFWWindow::hide()
 	{
-		glfwHideWindow(WINDOW_HANDLE);
+		glfwHideWindow(m_windowHandle);
 	}
 
 	bool GLFWWindow::isVisible()
 	{
-		return glfwGetWindowAttrib(WINDOW_HANDLE, GLFW_VISIBLE);
+		return glfwGetWindowAttrib(m_windowHandle, GLFW_VISIBLE);
 	}
 
 	void GLFWWindow::setVSync(bool vsync)
