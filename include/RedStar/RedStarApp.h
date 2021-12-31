@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RedStar/Logging.h"
+#include "RedStar/Window.h"
 
 namespace RedStar
 {
@@ -30,6 +31,7 @@ namespace RedStar
 	private:
 		bool m_running = false;
 		Logger m_appLogger;
+		std::unique_ptr<Window> m_window;
 
 		static RedStarApp* s_instance;
 	};

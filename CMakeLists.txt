@@ -8,6 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 include(CTest)
 
 add_subdirectory("src")
+add_subdirectory("vendor/glfw")
+add_subdirectory("vendor/glad")
 
 if(BUILD_TESTING)
     add_subdirectory("tests")

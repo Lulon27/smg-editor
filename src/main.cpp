@@ -1,5 +1,6 @@
 #include "RedStar/MyHeader.h"
 #include "RedStar/RedStarApp.h"
+#include "RedStar/Window.h"
 
 int main()
 {
