@@ -12,6 +12,7 @@ namespace RedStar
 		s_instance = this;
 
 		m_appLogger = Logger::create(RS_APP_LOGGER_NAME);
+		m_appLogger.setLevel(Logger::Level::Trace);
 
 		WindowProps props;
 		props.width = 400;
