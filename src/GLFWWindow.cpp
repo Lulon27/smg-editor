@@ -1,29 +1,36 @@
 #include "RedStar/GLFWWindow.h"
-#include "RedStar/Assert.h"
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "RedStar/RedStarApp.h"
+#include "RedStar/Assert.h"
+#include "RedStar/GLFWOpenGLContext.h"
 
 namespace RedStar
 {
 	static size_t windowCount = 0;
 	static bool glfwIsInited = false;
 	static bool glfwSetup = false;
-	static Logger glfwLogger = Logger::create("GLFW");
+	static Logger glfwLogger = Logger::create("GLFW", Logger::Level::Trace);
 
 	static void errorCallback(int error, const char* description)
 	{
 		glfwLogger.error(description);
 	}
 
-	GLFWWindow::GLFWWindow(const WindowProps& props)
+	static void doGlfwSetup()
+	{
+		glfwSetErrorCallback(errorCallback);
+		glfwSetup = true;
+		glfwLogger.debug("Initial setup done!");
+	}
+
+	GLFWWindow::GLFWWindow(const WindowProps& props, GraphicsContext::API contextAPI)
 	{
 		//One time setup for GLFW independent of glfwInit
 		if (!glfwSetup)
 		{
-			glfwSetErrorCallback(errorCallback);
-			glfwSetup = true;
+			doGlfwSetup();
 		}
 
 		//Always increment window count, even if window fails to create
@@ -35,23 +42,69 @@ namespace RedStar
 
 		if (!glfwIsInited) //Always try to init if it hasn't worked yet.
 		{
+			glfwLogger.debug("Initializing...");
 			if (!(glfwIsInited = glfwInit()))
 			{
 				RS_ASSERT(false, "Failed to init GLFW");
 				return;
 			}
+			glfwLogger.debug("Done!");
 		}
 		glfwWindowHint(GLFW_MAXIMIZED, props.maximized);
 		glfwWindowHint(GLFW_VISIBLE, props.visible);
 
-		//Dont create context for now
-		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+		glfwLogger.debug("Using context API: {}", contextAPI);
+		if (contextAPI == GraphicsContext::API::OpenGL)
+		{
+			//We only want OpenGL 3.2+
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+			glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 
+			m_context = std::make_unique<GLFWOpenGLContext>(this);
+		}
+		else
+		{
+			glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+			//m_context = std::make_unique<SomeOtherContext>(this);
+			RS_ASSERT(false, "Only OpenGL is supported for GLFW window");
+			return;
+		}
+
+		RS_ASSERT(m_context, "m_context cannot be nullptr");
+
+		//---------------------------------------//
+		// Init contexts other than OpenGL here. //
+		//---------------------------------------//
+
+		glfwLogger.debug("Creating window... [width={}, height={}]", props.width, props.height);
 		m_windowHandle = glfwCreateWindow(props.width, props.height, props.title, nullptr, nullptr);
-		RS_ASSERT(m_windowHandle, "Failed to create GLFW window");
+
+		if (!m_windowHandle)
+		{
+			glfwLogger.critical("Failed to create window [width={}, height={}]", props.width, props.height);
+			m_error = true;
+			return;
+		}
+
+		//Call context init after glfwCreateWindow because
+		//GLFW creates an OpenGL context
+		if (contextAPI == GraphicsContext::API::OpenGL)
+		{
+			glfwLogger.debug("Loading OpenGL context...");
+			if (!m_context->init())
+			{
+				glfwLogger.critical("Failed to load OpenGL context");
+				m_error = true;
+				return;
+			}
+			glfwLogger.debug("Done!");
+		}
 
 		//VSync only works after context creation
-		//setVSync(props.vsync);
+		setVSync(props.vsync);
 	}
 
 	GLFWWindow::~GLFWWindow()
@@ -70,12 +123,25 @@ namespace RedStar
 
 	void GLFWWindow::onUpdate()
 	{
+		if (m_error)
+		{
+			return;
+		}
+
 		RS_ASSERT(m_windowHandle, "Cannot update an uninitialized window!");
+
 		glfwPollEvents();
 		if (glfwWindowShouldClose(m_windowHandle))
 		{
 			glfwSetWindowShouldClose(m_windowHandle, false);
 			hide();
+		}
+
+		RS_ASSERT(m_context, "m_context cannot be nullptr");
+
+		if (isVisible())
+		{
+			m_context->swapBuffers();
 		}
 	}
 
@@ -96,18 +162,22 @@ namespace RedStar
 
 	void GLFWWindow::setVSync(bool vsync)
 	{
-		if (vsync)
-		{
-			glfwSwapInterval(1);
-		}
-		else
-		{
-			glfwSwapInterval(0);
-		}
+		RS_ASSERT(m_context, "m_context cannot be nullptr");
+		m_context->setVSync(vsync);
 	}
 
 	bool GLFWWindow::isVSyncEnabled()
 	{
 		return m_vsyncEnabled;
+	}
+
+	GraphicsContext* GLFWWindow::getGraphicsContext()
+	{
+		return m_context.get();
+	}
+
+	bool GLFWWindow::getError()
+	{
+		return m_error;
 	}
 }

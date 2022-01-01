@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#include "RedStar/GraphicsContext.h"
+
 namespace RedStar
 {
 	struct WindowProps
@@ -29,5 +31,14 @@ namespace RedStar
 
 		virtual void setVSync(bool vsync) = 0;
 		virtual bool isVSyncEnabled() = 0;
+
+		virtual GraphicsContext* getGraphicsContext() = 0;
+
+		virtual bool getError() = 0;
+
+		operator bool()
+		{
+			return !getError();
+		}
 	};
 }

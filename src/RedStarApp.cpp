@@ -22,9 +22,7 @@ namespace RedStar
 		props.visible = false;
 		props.vsync = true;
 
-		m_window = std::make_unique<GLFWWindow>(props);
-
-		m_window->show();
+		m_window = std::make_unique<GLFWWindow>(props, GraphicsContext::API::OpenGL);
 	}
 
 	RedStarApp::~RedStarApp()
@@ -34,6 +32,11 @@ namespace RedStar
 
 	void RedStarApp::run()
 	{
+		if (!*m_window)
+		{
+			return;
+		}
+		m_window->show();
 		m_running = true;
 		while (m_running)
 		{

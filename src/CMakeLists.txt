@@ -1,7 +1,7 @@
 set(FILES_CPP	"MyFile.cpp"
 				"RedStarApp.cpp"
 				"Logging.cpp"
-				"GLFWWindow.cpp")
+				"GLFWWindow.cpp" "GLFWOpenGLContext.cpp")
 
 set(EDITOR_EXEC_NAME "RedStarEditor")
 set(EDITOR_LIB_NAME "lib_RedStarEditor")

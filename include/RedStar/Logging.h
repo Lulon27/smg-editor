@@ -46,9 +46,11 @@ namespace RedStar
 		RS_LOG_FN_WRAPPER(error);
 		RS_LOG_FN_WRAPPER(critical);
 
-		static Logger create(const std::string& name)
+		static Logger create(const std::string& name, Logger::Level initLevel = Logger::Level::Info)
 		{
-			return Logger(name);
+			Logger l(name);
+			l.setLevel(initLevel);
+			return l;
 		}
 
 		static Logger get(const std::string& name)
