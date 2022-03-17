@@ -14,6 +14,8 @@ namespace RedStar
 		m_appLogger = Logger::create(RS_APP_LOGGER_NAME);
 		m_appLogger.setLevel(Logger::Level::Trace);
 
+		RS_INFO("Starting the application...");
+
 		WindowProps props;
 		props.width = 400;
 		props.height = 400;
@@ -46,5 +48,6 @@ namespace RedStar
 				m_running = false;
 			}
 		}
+		RS_INFO("Exiting the application...");
 	}
 }

@@ -112,12 +112,14 @@ namespace RedStar
 		if (m_windowHandle) // In case the window failed to create
 		{
 			glfwDestroyWindow(m_windowHandle);
+			glfwLogger.debug("Destroyed window [m_windowHandle={}]", (void*)m_windowHandle);
 		}
 
 		--windowCount;
 		if (windowCount == 0 && glfwIsInited)
 		{
 			glfwTerminate();
+			glfwLogger.debug("Terminated (all windows closed)");
 		}
 	}
 
