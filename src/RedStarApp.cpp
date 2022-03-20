@@ -10,24 +10,8 @@ namespace RedStar
 	{
 		RS_ASSERT(!s_instance, "Application can only be instantiated once!");
 		s_instance = this;
-
 		m_appLogger = Logger::create(RS_APP_LOGGER_NAME);
 		m_appLogger.setLevel(Logger::Level::Trace);
-
-		RS_INFO("Starting the application...");
-
-		m_eventQueue.setOnEvent(std::bind(&RedStarApp::onEvent, this, std::placeholders::_1));
-
-		WindowProps props;
-		props.width = 400;
-		props.height = 400;
-		props.title = "RedStar";
-		props.maximized = false;
-		props.visible = false;
-		props.vsync = true;
-
-		m_window = std::make_unique<GLFWWindow>(props, GraphicsContext::API::OpenGL);
-		m_window->setEventQueue(&m_eventQueue);
 	}
 
 	RedStarApp::~RedStarApp()
@@ -50,10 +34,25 @@ namespace RedStar
 
 	void RedStarApp::run()
 	{
+		RS_INFO("Starting the application...");
+
+		m_eventQueue.setOnEvent(std::bind(&RedStarApp::onEvent, this, std::placeholders::_1));
+
+		WindowProps props;
+		props.width = 400;
+		props.height = 400;
+		props.title = "RedStar";
+		props.maximized = false;
+		props.visible = false;
+		props.vsync = true;
+
+		m_window = std::make_unique<GLFWWindow>(props, GraphicsContext::API::OpenGL);
 		if (!*m_window)
 		{
 			return;
 		}
+
+		m_window->setEventQueue(&m_eventQueue);
 
 		m_window->show();
 		m_running = true;
