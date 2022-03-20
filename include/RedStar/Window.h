@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 
+#include "RedStar/Events/Event.h"
 #include "RedStar/GraphicsContext.h"
 
 namespace RedStar
@@ -40,5 +41,18 @@ namespace RedStar
 		{
 			return !getError();
 		}
+
+		void setEventQueue(EventQueue* eventQueue)
+		{
+			m_eventCallbacks = eventQueue;
+		}
+
+		EventQueue* getEventQueue() const
+		{
+			return m_eventCallbacks;
+		}
+
+	protected:
+		EventQueue* m_eventCallbacks = nullptr;
 	};
 }

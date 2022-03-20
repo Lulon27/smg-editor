@@ -5,9 +5,18 @@
 
 #include "RedStar/Assert.h"
 #include "RedStar/GLFWOpenGLContext.h"
+#include "RedStar/Events/WindowEvent.h"
+#include "RedStar/Events/KeyEvent.h"
+#include "RedStar/Events/MouseEvent.h"
 
 namespace RedStar
 {
+#define EVENT_CALLBACK(eventName, glfwWindow, ...)							\
+	GLFWWindow* myWin = (GLFWWindow*)glfwGetWindowUserPointer(glfwWindow);	\
+	if (myWin->m_eventCallbacks) {											\
+		myWin->m_eventCallbacks->pushEvent<##eventName>(myWin, __VA_ARGS__);\
+	}																		\
+
 	static size_t windowCount = 0;
 	static bool glfwIsInited = false;
 	static bool glfwSetup = false;
@@ -105,6 +114,56 @@ namespace RedStar
 
 		//VSync only works after context creation
 		setVSync(props.vsync);
+
+		glfwSetWindowUserPointer(m_windowHandle, this);
+
+		glfwSetWindowCloseCallback(m_windowHandle, [](GLFWwindow* window)
+		{
+			EVENT_CALLBACK(WindowCloseEvent, window);
+		});
+
+		glfwSetWindowSizeCallback(m_windowHandle, [](GLFWwindow* window, int width, int height)
+		{
+			EVENT_CALLBACK(WindowResizeEvent, window, width, height);
+		});
+
+		glfwSetKeyCallback(m_windowHandle, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+			if (action == GLFW_PRESS)
+			{
+				EVENT_CALLBACK(KeyPressedEvent, window, Input::keyFromGLFW(key));
+			}
+			else if (action == GLFW_RELEASE)
+			{
+				EVENT_CALLBACK(KeyReleasedEvent, window, Input::keyFromGLFW(key));
+			}
+			else if (action == GLFW_REPEAT)
+			{
+				EVENT_CALLBACK(KeyTypedEvent, window, Input::keyFromGLFW(key));
+			}
+		});
+
+		glfwSetMouseButtonCallback(m_windowHandle, [](GLFWwindow* window, int button, int action, int mods)
+		{
+			if (action == GLFW_PRESS)
+			{
+				EVENT_CALLBACK(MouseButtonPressedEvent, window, Input::mouseButtonFromGLFW(button));
+			}
+			else if (action == GLFW_RELEASE)
+			{
+				EVENT_CALLBACK(MouseButtonReleasedEvent, window, Input::mouseButtonFromGLFW(button));
+			}
+		});
+
+		glfwSetScrollCallback(m_windowHandle, [](GLFWwindow* window, double xoffset, double yoffset)
+		{
+			EVENT_CALLBACK(MouseScrolledEvent, window, xoffset, yoffset);
+		});
+
+		glfwSetCursorPosCallback(m_windowHandle, [](GLFWwindow* window, double xpos, double ypos)
+		{
+			EVENT_CALLBACK(MouseMovedEvent, window, xpos, ypos);
+		});
 	}
 
 	GLFWWindow::~GLFWWindow()

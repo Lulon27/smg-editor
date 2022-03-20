@@ -2,6 +2,7 @@
 
 #include "RedStar/Logging.h"
 #include "RedStar/Window.h"
+#include "RedStar/LayerStack.h"
 
 namespace RedStar
 {
@@ -12,6 +13,7 @@ namespace RedStar
 		~RedStarApp();
 
 		void run();
+		void onEvent(Event& event);
 
 		bool isRunning()
 		{
@@ -32,6 +34,8 @@ namespace RedStar
 		bool m_running = false;
 		Logger m_appLogger;
 		std::unique_ptr<Window> m_window;
+		EventQueue m_eventQueue;
+		LayerStack m_layerStack;
 
 		static RedStarApp* s_instance;
 	};

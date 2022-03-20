@@ -16,6 +16,8 @@ namespace RedStar
 
 		RS_INFO("Starting the application...");
 
+		m_eventQueue.setOnEvent(std::bind(&RedStarApp::onEvent, this, std::placeholders::_1));
+
 		WindowProps props;
 		props.width = 400;
 		props.height = 400;
@@ -25,11 +27,25 @@ namespace RedStar
 		props.vsync = true;
 
 		m_window = std::make_unique<GLFWWindow>(props, GraphicsContext::API::OpenGL);
+		m_window->setEventQueue(&m_eventQueue);
 	}
 
 	RedStarApp::~RedStarApp()
 	{
 
+	}
+
+	void RedStarApp::onEvent(Event& event)
+	{
+		if (event.getType() == EventType::WindowCloseEvent)
+		{
+			m_running = false;
+
+			//Don't continue processing remaining events
+			//if the window was closed
+			return;
+		}
+		m_layerStack.onEvent(event);
 	}
 
 	void RedStarApp::run()
@@ -38,15 +54,14 @@ namespace RedStar
 		{
 			return;
 		}
+
 		m_window->show();
 		m_running = true;
 		while (m_running)
 		{
 			m_window->onUpdate();
-			if (!m_window->isVisible())
-			{
-				m_running = false;
-			}
+			m_layerStack.onUpdate();
+			m_eventQueue.processEvents();
 		}
 		RS_INFO("Exiting the application...");
 	}
