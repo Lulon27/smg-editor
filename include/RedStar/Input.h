@@ -186,7 +186,67 @@ namespace RedStar
 
 	namespace Input
 	{
+		/*
+		 *	These codes are from glfw3.h
+		 */
+
+		namespace Mods
+		{
+			const int Shift = 0x0001;
+			const int Control = 0x0002;
+			const int Alt = 0x0004;
+			const int Super = 0x0008;
+			const int CapsLock = 0x0010;
+			const int NumLock = 0x0020;
+
+			class ModsField
+			{
+			public:
+				ModsField(uint8_t mods) : m_mods(mods) {};
+
+			public:
+				uint8_t getMods() const
+				{
+					return m_mods;
+				}
+
+				bool getShift() const
+				{
+					return m_mods & Input::Mods::Shift;
+				}
+
+				bool getControl() const
+				{
+					return m_mods & Input::Mods::Control;
+				}
+
+				bool getAlt() const
+				{
+					return m_mods & Input::Mods::Alt;
+				}
+
+				bool getSuper() const
+				{
+					return m_mods & Input::Mods::Super;
+				}
+
+				bool getCapsLock() const
+				{
+					return m_mods & Input::Mods::CapsLock;
+				}
+
+				bool getNumLock() const
+				{
+					return m_mods & Input::Mods::NumLock;
+				}
+
+			public:
+				const uint8_t m_mods;
+			};
+		}
+
 		const KeyData* keyFromGLFW(int glfwKey);
 		const MouseButtonData* mouseButtonFromGLFW(int glfwButton);
+		const Mods::ModsField modsFromGLFW(int glfwMods);
 	}
 }

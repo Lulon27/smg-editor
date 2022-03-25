@@ -133,15 +133,15 @@ namespace RedStar
 		{
 			if (action == GLFW_PRESS)
 			{
-				EVENT_CALLBACK(KeyPressedEvent, window, Input::keyFromGLFW(key));
+				EVENT_CALLBACK(KeyPressedEvent, window, Input::keyFromGLFW(key), Input::modsFromGLFW(mods));
 			}
 			else if (action == GLFW_RELEASE)
 			{
-				EVENT_CALLBACK(KeyReleasedEvent, window, Input::keyFromGLFW(key));
+				EVENT_CALLBACK(KeyReleasedEvent, window, Input::keyFromGLFW(key), Input::modsFromGLFW(mods));
 			}
 			else if (action == GLFW_REPEAT)
 			{
-				EVENT_CALLBACK(KeyTypedEvent, window, Input::keyFromGLFW(key));
+				EVENT_CALLBACK(KeyTypedEvent, window, Input::keyFromGLFW(key), Input::modsFromGLFW(mods));
 			}
 		});
 
@@ -149,11 +149,11 @@ namespace RedStar
 		{
 			if (action == GLFW_PRESS)
 			{
-				EVENT_CALLBACK(MouseButtonPressedEvent, window, Input::mouseButtonFromGLFW(button));
+				EVENT_CALLBACK(MouseButtonPressedEvent, window, Input::mouseButtonFromGLFW(button), Input::modsFromGLFW(mods));
 			}
 			else if (action == GLFW_RELEASE)
 			{
-				EVENT_CALLBACK(MouseButtonReleasedEvent, window, Input::mouseButtonFromGLFW(button));
+				EVENT_CALLBACK(MouseButtonReleasedEvent, window, Input::mouseButtonFromGLFW(button), Input::modsFromGLFW(mods));
 			}
 		});
 

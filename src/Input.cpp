@@ -171,4 +171,34 @@ namespace RedStar
 		RS_ASSERT(false, "Missing mapping for GLFW mouse button: {}", glfwButton);
 		return nullptr;
 	}
+
+	const Input::Mods::ModsField Input::modsFromGLFW(int glfwMods)
+	{
+		uint8_t mods = 0;
+		if (glfwMods & GLFW_MOD_SHIFT)
+		{
+			mods |= Input::Mods::Shift;
+		}
+		if (glfwMods & GLFW_MOD_CONTROL)
+		{
+			mods |= Input::Mods::Control;
+		}
+		if (glfwMods & GLFW_MOD_ALT)
+		{
+			mods |= Input::Mods::Alt;
+		}
+		if (glfwMods & GLFW_MOD_SUPER)
+		{
+			mods |= Input::Mods::Super;
+		}
+		if (glfwMods & GLFW_MOD_CAPS_LOCK)
+		{
+			mods |= Input::Mods::CapsLock;
+		}
+		if (glfwMods & GLFW_MOD_NUM_LOCK)
+		{
+			mods |= Input::Mods::NumLock;
+		}
+		return Input::Mods::ModsField(mods);
+	}
 }
