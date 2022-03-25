@@ -8,6 +8,7 @@
 #include "RedStar/Events/WindowEvent.h"
 #include "RedStar/Events/KeyEvent.h"
 #include "RedStar/Events/MouseEvent.h"
+#include "RedStar/Events/CharTypedEvent.h"
 
 namespace RedStar
 {
@@ -143,6 +144,11 @@ namespace RedStar
 			{
 				EVENT_CALLBACK(KeyTypedEvent, window, Input::keyFromGLFW(key), Input::modsFromGLFW(mods));
 			}
+		});
+
+		glfwSetCharCallback(m_windowHandle, [](GLFWwindow* window, unsigned int codepoint)
+		{
+			EVENT_CALLBACK(CharTypedEvent, window, codepoint);
 		});
 
 		glfwSetMouseButtonCallback(m_windowHandle, [](GLFWwindow* window, int button, int action, int mods)

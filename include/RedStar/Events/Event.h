@@ -22,6 +22,7 @@ namespace RedStar
 		KeyPressedEvent,
 		KeyReleasedEvent,
 		KeyTypedEvent,
+		CharTypedEvent,
 
 		MouseButtonPressedEvent,
 		MouseButtonReleasedEvent,
