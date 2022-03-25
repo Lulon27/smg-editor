@@ -210,38 +210,29 @@ namespace RedStar
 					return m_mods;
 				}
 
-				bool getShift() const
-				{
-					return m_mods & Input::Mods::Shift;
-				}
+				bool getShift() const		{ return m_mods & Input::Mods::Shift; }
+				bool getControl() const		{ return m_mods & Input::Mods::Control; }
+				bool getAlt() const			{ return m_mods & Input::Mods::Alt; }
+				bool getSuper() const		{ return m_mods & Input::Mods::Super; }
+				bool getCapsLock() const	{ return m_mods & Input::Mods::CapsLock; }
+				bool getNumLock() const		{ return m_mods & Input::Mods::NumLock; }
 
-				bool getControl() const
-				{
-					return m_mods & Input::Mods::Control;
-				}
+				bool setShift()				{ return m_mods |= Input::Mods::Shift; }
+				bool setControl()			{ return m_mods |= Input::Mods::Control; }
+				bool setAlt()				{ return m_mods |= Input::Mods::Alt; }
+				bool setSuper()				{ return m_mods |= Input::Mods::Super; }
+				bool setCapsLock()			{ return m_mods |= Input::Mods::CapsLock; }
+				bool setNumLock()			{ return m_mods |= Input::Mods::NumLock; }
 
-				bool getAlt() const
-				{
-					return m_mods & Input::Mods::Alt;
-				}
-
-				bool getSuper() const
-				{
-					return m_mods & Input::Mods::Super;
-				}
-
-				bool getCapsLock() const
-				{
-					return m_mods & Input::Mods::CapsLock;
-				}
-
-				bool getNumLock() const
-				{
-					return m_mods & Input::Mods::NumLock;
-				}
+				bool clearShift()			{ return m_mods &= ~Input::Mods::Shift; }
+				bool clearControl()			{ return m_mods &= ~Input::Mods::Control; }
+				bool clearAlt()				{ return m_mods &= ~Input::Mods::Alt; }
+				bool clearSuper()			{ return m_mods &= ~Input::Mods::Super; }
+				bool clearCapsLock()		{ return m_mods &= ~Input::Mods::CapsLock; }
+				bool clearNumLock()			{ return m_mods &= ~Input::Mods::NumLock; }
 
 			public:
-				const uint8_t m_mods;
+				uint8_t m_mods;
 			};
 		}
 

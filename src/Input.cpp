@@ -174,31 +174,31 @@ namespace RedStar
 
 	const Input::Mods::ModsField Input::modsFromGLFW(int glfwMods)
 	{
-		uint8_t mods = 0;
+		Input::Mods::ModsField mods(0);
 		if (glfwMods & GLFW_MOD_SHIFT)
 		{
-			mods |= Input::Mods::Shift;
+			mods.setShift();
 		}
 		if (glfwMods & GLFW_MOD_CONTROL)
 		{
-			mods |= Input::Mods::Control;
+			mods.setControl();
 		}
 		if (glfwMods & GLFW_MOD_ALT)
 		{
-			mods |= Input::Mods::Alt;
+			mods.setAlt();
 		}
 		if (glfwMods & GLFW_MOD_SUPER)
 		{
-			mods |= Input::Mods::Super;
+			mods.setSuper();
 		}
 		if (glfwMods & GLFW_MOD_CAPS_LOCK)
 		{
-			mods |= Input::Mods::CapsLock;
+			mods.setCapsLock();
 		}
 		if (glfwMods & GLFW_MOD_NUM_LOCK)
 		{
-			mods |= Input::Mods::NumLock;
+			mods.setNumLock();
 		}
-		return Input::Mods::ModsField(mods);
+		return mods;
 	}
 }

@@ -18,6 +18,11 @@ namespace RedStar
 			return *m_button;
 		}
 
+		void setButton(const MouseButtonData* button)
+		{
+			m_button = button;
+		}
+
 		virtual std::string toString() const override
 		{
 			std::stringstream ss;
@@ -44,6 +49,11 @@ namespace RedStar
 			return ss.str();
 		}
 
+		Input::Mods::ModsField& getMods()
+		{
+			return m_mods;
+		}
+
 	private:
 		Input::Mods::ModsField m_mods;
 	};
@@ -61,6 +71,11 @@ namespace RedStar
 			ss << getName() << "[" << getButton().code << ", \"" << getButton().name << "\""
 				<< ", mods=" << std::bitset<8>(m_mods.getMods()).to_string() << "]";
 			return ss.str();
+		}
+
+		Input::Mods::ModsField& getMods()
+		{
+			return m_mods;
 		}
 
 	private:

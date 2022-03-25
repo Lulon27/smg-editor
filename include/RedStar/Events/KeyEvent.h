@@ -19,6 +19,11 @@ namespace RedStar
 			return *m_key;
 		}
 
+		void setKey(const KeyData* key)
+		{
+			m_key = key;
+		}
+
 		virtual std::string toString() const override
 		{
 			std::stringstream ss;
