@@ -32,6 +32,7 @@ namespace RedStar
 
 	static void doGlfwSetup()
 	{
+		glfwLogger.debug(glfwGetVersionString());
 		glfwSetErrorCallback(errorCallback);
 		glfwSetup = true;
 		glfwLogger.debug("Initial setup done!");
