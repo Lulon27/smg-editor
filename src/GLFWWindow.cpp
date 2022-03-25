@@ -11,11 +11,13 @@
 
 namespace RedStar
 {
-#define EVENT_CALLBACK(eventName, glfwWindow, ...)							\
-	GLFWWindow* myWin = (GLFWWindow*)glfwGetWindowUserPointer(glfwWindow);	\
-	if (myWin->m_eventCallbacks) {											\
-		myWin->m_eventCallbacks->pushEvent<##eventName>(myWin, __VA_ARGS__);\
-	}																		\
+#define GLFW_WINDOW_PTR(glfwWindow) ((GLFWWindow*)glfwGetWindowUserPointer(glfwWindow))
+
+#define EVENT_CALLBACK(eventName, glfwWindow, ...)								\
+	GLFWWindow* myWin = (GLFWWindow*)glfwGetWindowUserPointer(glfwWindow);		\
+	if (myWin->m_eventCallbacks) {												\
+		myWin->m_eventCallbacks->pushEvent<eventName>(myWin, ##__VA_ARGS__);	\
+	}																			\
 
 	static size_t windowCount = 0;
 	static bool glfwIsInited = false;

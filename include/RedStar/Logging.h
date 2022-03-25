@@ -5,7 +5,7 @@
 
 #define RS_LOG_FN_WRAPPER(fn_name)\
 	template<typename... Args>\
-	void fn_name(const char* text, Args &&... args) const {m_logger->##fn_name(text, std::forward<Args>(args)...);}
+	void fn_name(const char* text, Args &&... args) const {m_logger->fn_name(text, std::forward<Args>(args)...);}
 
 #define RS_APP_LOGGER_NAME "RedStar"
 #define RS_ASSERT_LOGGER_NAME "Assert"

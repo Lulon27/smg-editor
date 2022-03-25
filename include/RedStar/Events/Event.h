@@ -11,7 +11,7 @@ namespace RedStar
 {
 #define EVENT_CLASS(name) \
 	public: \
-	virtual EventType getType() const override { return EventType::##name; }; \
+	virtual EventType getType() const override { return EventType::name; }; \
 	virtual std::string getName() const override { return #name; };
 
 	enum class EventType
