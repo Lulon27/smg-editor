@@ -3,6 +3,7 @@
 #include <string>
 
 #include "RedStar/Events/KeyEvent.h"
+#include "RedStar/Events/CharTypedEvent.h"
 #include "RedStar/Events/MouseEvent.h"
 #include "RedStar/Assert.h"
 
@@ -32,6 +33,7 @@ namespace RedStar
 				LAYER_EVENT_MAP_FN(KeyPressedEvent,		onKeyPressed)
 				LAYER_EVENT_MAP_FN(KeyReleasedEvent,	onKeyReleased)
 				LAYER_EVENT_MAP_FN(KeyTypedEvent,		onKeyTyped)
+				LAYER_EVENT_MAP_FN(CharTypedEvent,		onCharTyped)
 
 				LAYER_EVENT_MAP_FN(MouseButtonPressedEvent,		onMouseButtonPressed)
 				LAYER_EVENT_MAP_FN(MouseButtonReleasedEvent,	onMouseButtonReleased)
@@ -54,6 +56,7 @@ namespace RedStar
 		LAYER_EVENT_FN(KeyPressedEvent,			onKeyPressed)
 		LAYER_EVENT_FN(KeyReleasedEvent,		onKeyReleased)
 		LAYER_EVENT_FN(KeyTypedEvent,			onKeyTyped)
+		LAYER_EVENT_FN(CharTypedEvent,			onCharTyped)
 
 		LAYER_EVENT_FN(MouseButtonPressedEvent,		onMouseButtonPressed)
 		LAYER_EVENT_FN(MouseButtonReleasedEvent,	onMouseButtonReleased)
