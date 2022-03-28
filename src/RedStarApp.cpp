@@ -1,6 +1,11 @@
 #include "RedStar/RedStarApp.h"
 #include "RedStar/Assert.h"
 #include "RedStar/GLFWWindow.h"
+#include "RedStar/ImGuiLayer.h"
+#include "RedStar/ImGui/ImGuiRenderer.h"
+
+#include <memory>
+#include <glad/glad.h>
 
 namespace RedStar
 {
@@ -54,14 +59,29 @@ namespace RedStar
 
 		m_window->setEventQueue(&m_eventQueue);
 
+		//Initialize Dear ImGui
+		ImGuiOpenGL3InitInfo imGuiOpengl3Info;
+		imGuiOpengl3Info.glslVersion = "#version 150 core";
+		ImGuiRenderer::initialize(m_window.get(), GraphicsContext::API::OpenGL, &imGuiOpengl3Info);
+		
+		//Create layers
+		m_layerStack.pushLayer(std::make_shared<ImGuiLayer>());
+
 		m_window->show();
 		m_running = true;
 		while (m_running)
 		{
 			m_window->onUpdate();
-			m_layerStack.onUpdate();
+			
+			//The following GL calls should be abstracted away in the future
+			glClearColor(0.95f, 0.05f, 0.2f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
+
 			m_eventQueue.processEvents();
+			m_layerStack.onUpdate();
 		}
 		RS_INFO("Exiting the application...");
+
+		ImGuiRenderer::deinitialize();
 	}
 }

@@ -10,6 +10,7 @@ include(CTest)
 add_subdirectory("src")
 add_subdirectory("vendor/glfw")
 add_subdirectory("vendor/glad")
+add_subdirectory("vendor/imgui")
 
 if(BUILD_TESTING)
     add_subdirectory("tests")
