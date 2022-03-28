@@ -206,13 +206,6 @@ namespace RedStar
 			glfwSetWindowShouldClose(m_windowHandle, false);
 			hide();
 		}
-
-		RS_ASSERT(m_context, "m_context cannot be nullptr");
-
-		if (isVisible())
-		{
-			m_context->swapBuffers();
-		}
 	}
 
 	void GLFWWindow::show()

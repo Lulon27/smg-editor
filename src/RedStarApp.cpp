@@ -72,13 +72,18 @@ namespace RedStar
 		while (m_running)
 		{
 			m_window->onUpdate();
-			
+			m_eventQueue.processEvents();
+
 			//The following GL calls should be abstracted away in the future
 			glClearColor(0.95f, 0.05f, 0.2f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			m_eventQueue.processEvents();
 			m_layerStack.onUpdate();
+
+			if (m_window->isVisible())
+			{
+				m_window->getGraphicsContext()->swapBuffers();
+			}
 		}
 		RS_INFO("Exiting the application...");
 
