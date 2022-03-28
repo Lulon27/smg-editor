@@ -9,7 +9,6 @@
 
 namespace RedStar
 {
-#define LAYER_EVENT_FN(eventType, fnName) virtual bool fnName(eventType& ev) { return false; }
 #define LAYER_EVENT_MAP_FN(eventType, fnName) case EventType::eventType: return fnName(*(eventType*)&ev);
 
 	class Layer
@@ -50,18 +49,18 @@ namespace RedStar
 		}
 
 	protected:
-		LAYER_EVENT_FN(WindowCloseEvent,		onWindowClose)
-		LAYER_EVENT_FN(WindowResizeEvent,		onWindowResize)
+		virtual bool onWindowClose(WindowCloseEvent& ev) { return false; }
+		virtual bool onWindowResize(WindowResizeEvent& ev) { return false; }
 
-		LAYER_EVENT_FN(KeyPressedEvent,			onKeyPressed)
-		LAYER_EVENT_FN(KeyReleasedEvent,		onKeyReleased)
-		LAYER_EVENT_FN(KeyTypedEvent,			onKeyTyped)
-		LAYER_EVENT_FN(CharTypedEvent,			onCharTyped)
+		virtual bool onKeyPressed(KeyPressedEvent& ev) { return false; }
+		virtual bool onKeyReleased(KeyReleasedEvent& ev) { return false; }
+		virtual bool onKeyTyped(KeyTypedEvent& ev) { return false; }
+		virtual bool onCharTyped(CharTypedEvent& ev) { return false; }
 
-		LAYER_EVENT_FN(MouseButtonPressedEvent,		onMouseButtonPressed)
-		LAYER_EVENT_FN(MouseButtonReleasedEvent,	onMouseButtonReleased)
-		LAYER_EVENT_FN(MouseScrolledEvent,			onMouseScrolled)
-		LAYER_EVENT_FN(MouseMovedEvent,				onMouseMoved)
+		virtual bool onMouseButtonPressed(MouseButtonPressedEvent& ev) { return false; }
+		virtual bool onMouseButtonReleased(MouseButtonReleasedEvent& ev) { return false; }
+		virtual bool onMouseScrolled(MouseScrolledEvent& ev) { return false; }
+		virtual bool onMouseMoved(MouseMovedEvent& ev) { return false; }
 
 	protected:
 		std::string m_dbgName;
