@@ -1,7 +1,7 @@
 #pragma once
 
 #include <spdlog/spdlog.h>
-#include "spdlog/sinks/stdout_color_sinks.h"
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 #define RS_LOG_FN_WRAPPER(fn_name)\
 	template<typename... Args>\
