@@ -10,7 +10,7 @@
 
 namespace RedStar
 {
-	static enum class ImGuiBackend
+	enum class ImGuiBackend
 	{
 		None = -1,
 		GLFW_OpenGL3
