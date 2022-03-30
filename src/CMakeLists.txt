@@ -10,6 +10,12 @@ set(FILES_CPP	"MyFile.cpp"
 				"ImGui/ImGuiRenderer.cpp"
 				"ImGui/ImGuiRenderer_GLFW_OpenGL3.cpp")
 
+# To copy the imgui.ini file to the build directory when CMake
+# is configured. This is so that the windows are docked correctly
+# when a user builds the application for the first time.
+# In the future, Dear ImGui's DockBuilder API should be used probably.
+configure_file("${CMAKE_SOURCE_DIR}/imgui.ini" "imgui.ini" COPYONLY)
+
 set(EDITOR_EXEC_NAME "RedStarEditor")
 set(EDITOR_LIB_NAME "lib_RedStarEditor")
 
