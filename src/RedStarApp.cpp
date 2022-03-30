@@ -44,8 +44,8 @@ namespace RedStar
 		m_eventQueue.setOnEvent(std::bind(&RedStarApp::onEvent, this, std::placeholders::_1));
 
 		WindowProps props;
-		props.width = 400;
-		props.height = 400;
+		props.width = 1200;
+		props.height = 800;
 		props.title = "RedStar";
 		props.maximized = false;
 		props.visible = false;

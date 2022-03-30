@@ -10,6 +10,7 @@ namespace RedStar
 
 		ImGuiLayer();
 
+		virtual void onAttach() override;
 		virtual void onUpdate() override;
 
 	protected:
