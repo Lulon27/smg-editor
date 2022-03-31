@@ -8,6 +8,9 @@
 
 namespace RedStar
 {
+	/**
+	 * @brief Event that is fired if a character was typed.
+	 */
 	class CharTypedEvent : public WindowEvent
 	{
 		EVENT_CLASS(CharTypedEvent)
@@ -16,11 +19,19 @@ namespace RedStar
 			: WindowEvent(window), m_codepoint(codepoint) {};
 
 	public:
+		/**
+		 * @brief Returns the codepoint of the typed character.
+		 * @return the codepoint
+		 */
 		uint32_t getCodepoint() const
 		{
 			return m_codepoint;
 		}
 
+		/**
+		 * @brief Sets the codepoint that was typed.
+		 * @param[in] codepoint the new codepoint
+		 */
 		void setCodepoint(uint32_t codepoint)
 		{
 			m_codepoint = codepoint;

@@ -6,6 +6,9 @@
 
 namespace RedStar
 {
+	/**
+	 * @brief Event related to mouse buttons.
+	 */
 	class MouseButtonEvent : public WindowEvent
 	{
 	protected:
@@ -13,11 +16,20 @@ namespace RedStar
 			: WindowEvent(window), m_button(button) {};
 
 	public:
+
+		/**
+		 * @brief Returns the mouse button that this event handles.
+		 * @return the event mouse button
+		 */
 		const MouseButtonData& getButton() const
 		{
 			return *m_button;
 		}
 
+		/**
+		 * @brief Sets the mouse button that is handled by this event.
+		 * @param[in] key the new event mouse button
+		 */
 		void setButton(const MouseButtonData* button)
 		{
 			m_button = button;
@@ -34,6 +46,9 @@ namespace RedStar
 		const MouseButtonData* m_button;
 	};
 
+	/**
+	 * @brief Event that is fired if a mouse button was pressed.
+	 */
 	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 		EVENT_CLASS(MouseButtonPressedEvent)
@@ -49,6 +64,10 @@ namespace RedStar
 			return ss.str();
 		}
 
+		/**
+		 * @brief Returns the modifiers that are active during this event.
+		 * @return the event mouse button modifiers
+		 */
 		Input::Mods::ModsField& getMods()
 		{
 			return m_mods;
@@ -58,6 +77,9 @@ namespace RedStar
 		Input::Mods::ModsField m_mods;
 	};
 
+	/**
+	 * @brief Event that is fired if a mouse button was released.
+	 */
 	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 		EVENT_CLASS(MouseButtonReleasedEvent)
@@ -73,6 +95,10 @@ namespace RedStar
 			return ss.str();
 		}
 
+		/**
+		 * @brief Returns the modifiers that are active during this event.
+		 * @return the event mouse button modifiers
+		 */
 		Input::Mods::ModsField& getMods()
 		{
 			return m_mods;
@@ -82,6 +108,9 @@ namespace RedStar
 		Input::Mods::ModsField m_mods;
 	};
 
+	/**
+	 * @brief Event that is fired if the mouse wheel was scrolled.
+	 */
 	class MouseScrolledEvent : public WindowEvent
 	{
 		EVENT_CLASS(MouseScrolledEvent)
@@ -97,10 +126,21 @@ namespace RedStar
 		}
 
 	public:
+
+		/**
+		 * @brief Horizontal scroll amount from -1 to +1 where -1 is left.
+		 */
 		double xOffset;
+
+		/**
+		 * @brief Vertical scroll amount from -1 to +1 where -1 is down.
+		 */
 		double yOffset;
 	};
 
+	/**
+	 * @brief Event that is fired if the mouse position changed.
+	 */
 	class MouseMovedEvent : public WindowEvent
 	{
 		EVENT_CLASS(MouseMovedEvent)
@@ -116,7 +156,15 @@ namespace RedStar
 		}
 
 	public:
+
+		/**
+		 * @brief New X-position in pixels where the origin is the top left corner of the window area.
+		 */
 		double xPos;
+
+		/**
+		 * @brief New Y-position in pixels where the origin is the top left corner of the window area.
+		 */
 		double yPos;
 	};
 }

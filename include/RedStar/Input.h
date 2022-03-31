@@ -8,6 +8,9 @@ namespace RedStar
 	using KeyCode = int32_t;
 	using MouseButtonCode = int32_t;
 
+	/**
+	 * @brief Struct that contains information about a keyboard key.
+	 */
 	struct KeyData
 	{
 		KeyData(KeyCode code, const std::string& name)
@@ -20,6 +23,9 @@ namespace RedStar
 		friend bool operator!=(const KeyData& l, const KeyData& r);
 	};
 
+	/**
+	 * @brief Struct that contains information about a mouse button.
+	 */
 	struct MouseButtonData
 	{
 		MouseButtonData(MouseButtonCode code, const std::string& name)
@@ -199,12 +205,20 @@ namespace RedStar
 			const int CapsLock = 0x0010;
 			const int NumLock = 0x0020;
 
+			/**
+			 * @brief Class that represents key and mouse button modifier states.
+			 */
 			class ModsField
 			{
 			public:
 				ModsField(uint8_t mods) : m_mods(mods) {};
 
 			public:
+
+				/**
+				 * @brief Returns the underlying bitfield.
+				 * @return the underlying bitfield
+				 */
 				uint8_t getMods() const
 				{
 					return m_mods;
@@ -217,12 +231,18 @@ namespace RedStar
 				bool getCapsLock() const	{ return m_mods & Input::Mods::CapsLock; }
 				bool getNumLock() const		{ return m_mods & Input::Mods::NumLock; }
 
+				// The following methods set
+				// the corresponding modifier to true
+
 				bool setShift()				{ return m_mods |= Input::Mods::Shift; }
 				bool setControl()			{ return m_mods |= Input::Mods::Control; }
 				bool setAlt()				{ return m_mods |= Input::Mods::Alt; }
 				bool setSuper()				{ return m_mods |= Input::Mods::Super; }
 				bool setCapsLock()			{ return m_mods |= Input::Mods::CapsLock; }
 				bool setNumLock()			{ return m_mods |= Input::Mods::NumLock; }
+
+				// The following methods set
+				// the corresponding modifier to false
 
 				bool clearShift()			{ return m_mods &= ~Input::Mods::Shift; }
 				bool clearControl()			{ return m_mods &= ~Input::Mods::Control; }
@@ -235,6 +255,8 @@ namespace RedStar
 				uint8_t m_mods;
 			};
 		}
+
+		// Convert from GLFW
 
 		const KeyData* keyFromGLFW(int glfwKey);
 		const MouseButtonData* mouseButtonFromGLFW(int glfwButton);

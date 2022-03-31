@@ -11,17 +11,49 @@ namespace RedStar
 {
 #define LAYER_EVENT_MAP_FN(eventType, fnName) case EventType::eventType: return fnName(*(eventType*)&ev);
 
+	/**
+	 * @brief A layer that can be pushed onto a layer stack.
+	 */
 	class Layer
 	{
 	public:
-
 		Layer(const std::string& dbgName = "Layer") : m_dbgName(dbgName) {}
 		virtual ~Layer() = default;
 
+		/**
+		 * @brief This is called once when the layer is pushed onto a layer stack.
+		 */
 		virtual void onAttach() {}
+
+		/**
+		 * @brief This is called once when the layer is popped from a layer stack.
+		 */
 		virtual void onDetach() {}
+
+		/**
+		 * @brief This is called when the layer is on a layer stack and the layer stack is updated.
+		 * 
+		 * Layers are updated from bottom to top, so the layer that was pushed onto the layer stack first
+		 * is updated first.
+		 */
 		virtual void onUpdate() {}
 
+		/**
+		 * @brief This is called when the layer is on a layer stack and an event is passed to the layer stack.
+		 *
+		 * Layers receive events from top to bottom, so the layer that was pushed onto the layer stack first
+		 * will receive the event last.
+		 * The return value determines whether the event has been handled by the layer.
+		 * If a layer handles an event, the layers that are below this layer on the stack (added before)
+		 * will not receive the handled event.
+		 * Some events can also be modified so the next layers that will receive the event
+		 * will receive the modified version. This can for example be used to alter the mouse position
+		 * that would get processed on the next layer.
+		 * 
+		 * @param[in] event the event
+		 * 
+		 * @return true if the event has been handled by the layer
+		 */
 		bool onEvent(Event& ev)
 		{
 			switch (ev.getType())
@@ -43,12 +75,17 @@ namespace RedStar
 			return false;
 		}
 
+		/**
+		 * @brief Returns the debug name that can be useful for logging.
+		 * @return the debug name of the layer
+		 */
 		const std::string& getDebugName() const
 		{
 			return m_dbgName;
 		}
 
 	protected:
+
 		virtual bool onWindowClose(WindowCloseEvent& ev) { return false; }
 		virtual bool onWindowResize(WindowResizeEvent& ev) { return false; }
 

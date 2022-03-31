@@ -7,6 +7,9 @@
 
 namespace RedStar
 {
+	/**
+	 * @brief Event related to keyboard keys.
+	 */
 	class KeyEvent : public WindowEvent
 	{
 	protected:
@@ -14,11 +17,19 @@ namespace RedStar
 			: WindowEvent(window), m_mods(mods), m_key(key) {};
 
 	public:
+		/**
+		 * @brief Returns the key that this event handles.
+		 * @return the event key
+		 */
 		const KeyData& getKey() const
 		{
 			return *m_key;
 		}
 
+		/**
+		 * @brief Sets the key that is handled by this event.
+		 * @param[in] key the new event key
+		 */
 		void setKey(const KeyData* key)
 		{
 			m_key = key;
@@ -32,6 +43,10 @@ namespace RedStar
 			return ss.str();
 		}
 
+		/**
+		 * @brief Returns the modifiers that are active during this event.
+		 * @return the event key modifiers
+		 */
 		Input::Mods::ModsField& getMods()
 		{
 			return m_mods;
@@ -42,6 +57,9 @@ namespace RedStar
 		Input::Mods::ModsField m_mods;
 	};
 
+	/**
+	 * @brief Event that is fired if a key was pressed.
+	 */
 	class KeyPressedEvent : public KeyEvent
 	{
 		EVENT_CLASS(KeyPressedEvent)
@@ -50,6 +68,9 @@ namespace RedStar
 			: KeyEvent(window, key, mods) {}
 	};
 
+	/**
+	 * @brief Event that is fired if a key was released.
+	 */
 	class KeyReleasedEvent : public KeyEvent
 	{
 		EVENT_CLASS(KeyReleasedEvent)
@@ -58,6 +79,9 @@ namespace RedStar
 			: KeyEvent(window, key, mods) {}
 	};
 
+	/**
+	 * @brief Event that is fired if a key was typed (pressed and held down).
+	 */
 	class KeyTypedEvent : public KeyEvent
 	{
 		EVENT_CLASS(KeyTypedEvent)

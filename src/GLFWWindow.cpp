@@ -53,7 +53,7 @@ namespace RedStar
 		//and window count is unsigned.
 		++windowCount;
 
-		if (!glfwIsInited) //Always try to init if it hasn't worked yet.
+		if (!glfwIsInited) //Always try to init even if it hasn't worked yet.
 		{
 			glfwLogger.debug("Initializing...");
 			if (!(glfwIsInited = glfwInit()))
@@ -206,6 +206,12 @@ namespace RedStar
 			glfwSetWindowShouldClose(m_windowHandle, false);
 			hide();
 		}
+
+		/* 
+		 * Don't swap buffers here;
+		 * This is done in the main loop after
+		 * layer stack updates etc.
+		 */ 
 	}
 
 	void GLFWWindow::show()
