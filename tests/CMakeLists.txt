@@ -21,4 +21,4 @@ macro(redstar_add_test TESTNAME)
     set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
 endmacro()
 
-redstar_add_test(ExampleTest test_file.cpp)
+# redstar_add_test(ExampleTest test_file.cpp)

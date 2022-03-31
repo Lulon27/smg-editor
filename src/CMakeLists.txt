@@ -1,4 +1,4 @@
-set(FILES_CPP	"MyFile.cpp"
+set(FILES_CPP	
 				"RedStarApp.cpp"
 				"Logging.cpp"
 				"GLFWWindow.cpp"
