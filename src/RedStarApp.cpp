@@ -65,6 +65,7 @@ namespace RedStar
 		ImGuiRenderer::initialize(m_window.get(), GraphicsContext::API::OpenGL, &imGuiOpengl3Info);
 		
 		//Create layers
+		m_layerStack.clear(); // Clear in case it isn't
 		m_layerStack.pushLayer(std::make_shared<ImGuiLayer>());
 
 		m_window->show();
