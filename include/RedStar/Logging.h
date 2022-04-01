@@ -1,11 +1,23 @@
 #pragma once
 
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
+#include <string>
 
-#define RS_LOG_FN_WRAPPER(fn_name)\
+#ifdef RS_DISABLE_LOGGING
+
+	#define RS_LOG_FN_WRAPPER(fn_name)\
+	template<typename... Args>\
+	void fn_name(const char* text, Args &&... args) const {}
+
+#else
+
+	#include <spdlog/spdlog.h>
+	#include <spdlog/sinks/stdout_color_sinks.h>
+
+	#define RS_LOG_FN_WRAPPER(fn_name)\
 	template<typename... Args>\
 	void fn_name(const char* text, Args &&... args) const {m_logger->fn_name(text, std::forward<Args>(args)...);}
+
+#endif
 
 #define RS_APP_LOGGER_NAME "RedStar"
 #define RS_ASSERT_LOGGER_NAME "Assert"
@@ -21,8 +33,6 @@ namespace RedStar
 {
 	class Logger
 	{
-		using LoggerType = std::shared_ptr<spdlog::logger>;
-
 	public:
 		enum class Level
 		{
@@ -42,7 +52,7 @@ namespace RedStar
 		 * Creates an empty logger. This will cause
 		 * undefined behaviour if used.
 		 */
-		Logger() : m_logger() {}
+		Logger();
 
 		RS_LOG_FN_WRAPPER(trace);
 		RS_LOG_FN_WRAPPER(debug);
@@ -64,12 +74,7 @@ namespace RedStar
 		 *
 		 * @return the created logger
 		 */
-		static Logger create(const std::string& name, Logger::Level initLevel = Logger::Level::Info)
-		{
-			Logger l(name);
-			l.setLevel(initLevel);
-			return l;
-		}
+		static Logger create(const std::string& name, Logger::Level initLevel = Logger::Level::Info);
 
 		/**
 		 * @brief Gets a logger by name.
@@ -82,11 +87,7 @@ namespace RedStar
 		 * 
 		 * @return the logger with the given name
 		 */
-		static Logger get(const std::string& name)
-		{
-			//I think it's okay to copy the logger as it's only a shared pointer
-			return Logger(spdlog::get(name));
-		}
+		static Logger get(const std::string& name);
 
 		/**
 		 * @brief Gets the logger used for assert messages.
@@ -105,11 +106,12 @@ namespace RedStar
 		void setLevel(Logger::Level level);
 
 	private:
-		Logger(const std::string& name) : m_logger(spdlog::stdout_color_mt(name)) {}
-		Logger(const LoggerType& logger) : m_logger(logger) {}
+		Logger(const std::string& name);
 
 	private:
-		LoggerType m_logger;
+#ifndef RS_DISABLE_LOGGING
+		std::shared_ptr<spdlog::logger> m_logger;
+#endif
 
 		static Logger s_assertLogger;
 	};

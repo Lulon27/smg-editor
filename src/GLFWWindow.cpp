@@ -9,6 +9,7 @@
 #include "RedStar/Events/KeyEvent.h"
 #include "RedStar/Events/MouseEvent.h"
 #include "RedStar/Events/CharTypedEvent.h"
+#include "RedStar/Logging.h"
 
 namespace RedStar
 {
