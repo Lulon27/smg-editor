@@ -22,5 +22,10 @@ namespace RedStar
 		virtual bool onMouseButtonPressed(MouseButtonPressedEvent& event) override;
 		virtual bool onMouseButtonReleased(MouseButtonReleasedEvent& event) override;
 		virtual bool onMouseScrolled(MouseScrolledEvent& event) override;
+
+		virtual const char* getDebugName() const override
+		{
+			return "ImGuiLayer";
+		}
 	};
 }

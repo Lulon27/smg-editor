@@ -1,7 +1,5 @@
 #pragma once
 
-#include <string>
-
 #include "RedStar/Events/KeyEvent.h"
 #include "RedStar/Events/CharTypedEvent.h"
 #include "RedStar/Events/MouseEvent.h"
@@ -17,7 +15,6 @@ namespace RedStar
 	class Layer
 	{
 	public:
-		Layer(const std::string& dbgName = "Layer") : m_dbgName(dbgName) {}
 		virtual ~Layer() = default;
 
 		/**
@@ -50,11 +47,14 @@ namespace RedStar
 		 * will receive the modified version. This can for example be used to alter the mouse position
 		 * that would get processed on the next layer.
 		 * 
+		 * Even tough this method is virtual, prefer to override the other more specific event methods,
+		 * e. g. onWindowClose().
+		 * 
 		 * @param[in] event the event
 		 * 
 		 * @return true if the event has been handled by the layer
 		 */
-		bool onEvent(Event& ev)
+		virtual bool onEvent(Event& ev)
 		{
 			switch (ev.getType())
 			{
@@ -79,9 +79,9 @@ namespace RedStar
 		 * @brief Returns the debug name that can be useful for logging.
 		 * @return the debug name of the layer
 		 */
-		const std::string& getDebugName() const
+		virtual const char* getDebugName() const
 		{
-			return m_dbgName;
+			return "Layer";
 		}
 
 	protected:
@@ -98,8 +98,5 @@ namespace RedStar
 		virtual bool onMouseButtonReleased(MouseButtonReleasedEvent& ev) { return false; }
 		virtual bool onMouseScrolled(MouseScrolledEvent& ev) { return false; }
 		virtual bool onMouseMoved(MouseMovedEvent& ev) { return false; }
-
-	protected:
-		std::string m_dbgName;
 	};
 }

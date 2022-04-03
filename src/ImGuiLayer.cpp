@@ -6,7 +6,7 @@
 
 namespace RedStar
 {
-    ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {}
+    ImGuiLayer::ImGuiLayer() : Layer() {}
 
     static void setStyle()
     {
