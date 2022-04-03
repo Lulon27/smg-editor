@@ -26,7 +26,7 @@ namespace RedStar
 
 	void RedStarApp::onEvent(Event& event)
 	{
-		if (event.getType() == EventType::WindowCloseEvent)
+		if (event.getType() == EventTypes::WindowCloseEvent)
 		{
 			m_running = false;
 

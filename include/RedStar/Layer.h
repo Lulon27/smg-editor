@@ -9,7 +9,7 @@
 
 namespace RedStar
 {
-#define LAYER_EVENT_MAP_FN(eventType, fnName) case EventType::eventType: return fnName(*(eventType*)&ev);
+#define LAYER_EVENT_MAP_FN(eventType, fnName) case EventTypes::eventType: return fnName(*(eventType*)&ev);
 
 	/**
 	 * @brief A layer that can be pushed onto a layer stack.

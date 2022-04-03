@@ -11,29 +11,32 @@ namespace RedStar
 {
 #define EVENT_CLASS(name) \
 	public: \
-	virtual EventType getType() const override { return EventType::name; }; \
+	virtual EventType getType() const override { return EventTypes::name; }; \
 	virtual std::string getName() const override { return #name; };
+
+	using EventType = uint32_t;
 
 	/**
 	 * @brief Contains all event types that can be used to check
 	 * if an event is of a specific type.
 	 */
-	enum class EventType
+	namespace EventTypes
 	{
-		// If a new event is created it must be added to this enum!
+		// A namespace instead of an enum allows event types to be added from anywhere
+		// by reopening the namespace
 
-		WindowCloseEvent = 1,
-		WindowResizeEvent,
+		const EventType WindowCloseEvent	= 10;
+		const EventType WindowResizeEvent	= 11;
 
-		KeyPressedEvent,
-		KeyReleasedEvent,
-		KeyTypedEvent,
-		CharTypedEvent,
+		const EventType KeyPressedEvent		= 20;
+		const EventType KeyReleasedEvent	= 21;
+		const EventType KeyTypedEvent		= 22;
+		const EventType CharTypedEvent		= 30;
 
-		MouseButtonPressedEvent,
-		MouseButtonReleasedEvent,
-		MouseScrolledEvent,
-		MouseMovedEvent
+		const EventType MouseButtonPressedEvent		= 40;
+		const EventType MouseButtonReleasedEvent	= 41;
+		const EventType MouseScrolledEvent			= 42;
+		const EventType MouseMovedEvent				= 43;
 	};
 
 	class Event
