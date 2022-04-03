@@ -89,9 +89,9 @@ namespace RedStar
 		 * @param[in] args	constructor arguments of the event
 		 */
 		template<typename T, class... Args>
-		void pushEvent(Args... args)
+		void pushEvent(Args&&... args)
 		{
-			m_events.push(std::make_unique<T>(args...));
+			m_events.push(std::make_unique<T>(std::forward<Args>(args)...));
 		}
 
 		/**
