@@ -1,5 +1,5 @@
 
-set(EDITOR_LIB_NAME "lib_RedStarEditor")
+set(EDITOR_LIB_TESTING_NAME "RedStarEditorLibTesting")
 set(GTEST_PATH "vendor/googletest")
 
 include(GoogleTest)
@@ -16,9 +16,10 @@ macro(redstar_add_test TESTNAME)
 
     include_directories(${TESTNAME} PUBLIC "${CMAKE_SOURCE_DIR}/include/")
     add_executable(${TESTNAME} ${ARGN})
-    target_link_libraries(${TESTNAME} gtest gmock gtest_main ${EDITOR_LIB_NAME})
+
+    target_link_libraries(${TESTNAME} gtest gmock gtest_main ${EDITOR_LIB_TESTING_NAME})
     gtest_discover_tests(${TESTNAME})
     set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
 endmacro()
 
-# redstar_add_test(ExampleTest test_file.cpp)
+redstar_add_test(TestLayerStackEventSystem TestLayerStackEventSystem.cpp)

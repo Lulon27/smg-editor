@@ -17,7 +17,8 @@ set(FILES_CPP
 configure_file("${CMAKE_SOURCE_DIR}/imgui.ini" "imgui.ini" COPYONLY)
 
 set(EDITOR_EXEC_NAME "RedStarEditor")
-set(EDITOR_LIB_NAME "lib_RedStarEditor")
+set(EDITOR_LIB_NAME "RedStarEditorLib")
+set(EDITOR_LIB_TESTING_NAME "RedStarEditorLibTesting")
 
 include_directories(${EDITOR_LIB_NAME} PUBLIC	"${CMAKE_SOURCE_DIR}/include/"
 												"${CMAKE_SOURCE_DIR}/vendor/spdlog/include/"
@@ -27,6 +28,12 @@ include_directories(${EDITOR_LIB_NAME} PUBLIC	"${CMAKE_SOURCE_DIR}/include/"
 
 add_library(${EDITOR_LIB_NAME}	${FILES_CPP})
 target_compile_definitions(${EDITOR_LIB_NAME} PUBLIC GLFW_INCLUDE_NONE)
+
+if(BUILD_TESTING)
+    add_library(${EDITOR_LIB_TESTING_NAME}	${FILES_CPP})
+	# Important to add RS_DISABLE_LOGGING to the editor LIBRARY (not the executable)
+	target_compile_definitions(${EDITOR_LIB_TESTING_NAME} PUBLIC GLFW_INCLUDE_NONE RS_DISABLE_LOGGING)
+endif()
 
 add_executable (${EDITOR_EXEC_NAME} "main.cpp")
 

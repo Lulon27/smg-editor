@@ -5,6 +5,7 @@ project (RedStarEditor)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+option(BUILD_TESTING "BUILD_TESTING" OFF)
 include(CTest)
 
 add_subdirectory("src")
