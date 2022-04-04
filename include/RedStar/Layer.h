@@ -71,7 +71,9 @@ namespace RedStar
 				LAYER_EVENT_MAP_FN(MouseScrolledEvent,			onMouseScrolled)
 				LAYER_EVENT_MAP_FN(MouseMovedEvent,				onMouseMoved)
 			}
-			RS_ASSERT(false, "No mapping for event {}", ev.toString());
+			// Usually all built in events should be added here.
+			// If an event isn't here
+			// a layer must override the onEvent() method and check for that event.
 			return false;
 		}
 
